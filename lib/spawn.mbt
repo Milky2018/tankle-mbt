@@ -26,7 +26,7 @@ fn spawn_enemy_system(entities : Entities) -> Unit {
 
 fn get_free_pos(
   occupied : Array[Collision],
-  rand_state : @random.RandomState
+  rand_state : @random.Rand 
 ) -> Pos? {
   let pos1 = { x: border_left, y: border_top }
   let pos2 = { x: border_right - tank_width, y: border_top }
@@ -34,7 +34,7 @@ fn get_free_pos(
   let pos4 = { x: border_left, y: border_bottom - tank_width }
   for
     pos in [pos1, pos2, pos3, pos4].shuffle(
-      rand=fn(upper) { rand_state.gen_int() },
+      rand=fn(upper) { rand_state.int(limit=upper) },
     ) {
     let col = Collision::square(pos, tank_width)
     if occupied.iter().all(fn(collision) { not(col.collide(collision)) }) {

@@ -41,7 +41,7 @@ let zombie_controller : Controller = fn(
     tank : Tank,
     entities : Entities
   ) -> Unit {
-    let rate = entities.random_state.gen_int() % 400
+    let rate = entities.random_state.int(limit=400)
     if rate < 25 {
       let dir = if rate < 5 {
         Some(Up)

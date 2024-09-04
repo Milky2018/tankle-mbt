@@ -5,7 +5,7 @@ struct Entities {
   pressedpad : @w4x.PressedPad
   mut levels : Array[Level]
   mut level_idx : Int
-  random_state : @random.RandomState
+  random_state : @random.Rand
 }
 
 fn default_player_tank() -> Tank {
@@ -20,7 +20,7 @@ fn Entities::default() -> Entities {
     pressedpad: @w4x.PressedPad::new(),
     levels: make_levels(),
     level_idx: 0,
-    random_state: @random.init_state(),
+    random_state: @random.new(),
   }
 }
 
