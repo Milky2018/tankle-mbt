@@ -1,6 +1,6 @@
 fn control_system(entities : Entities) -> Unit {
   for tank in entities.tanks {
-    (tank.model.controller.0)(tank, entities)
+    (tank.model.controller._)(tank, entities)
   }
 }
 

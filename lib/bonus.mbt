@@ -26,7 +26,7 @@ let traj_bonus : TankModel = {
   sprite: traj_sprite,
   controller: stand_controller,
   max_health: 1,
-  bonus: Traj(3),
+  bonus: Traj(2),
 }
 
 let cd_bonus : TankModel = {
@@ -51,6 +51,14 @@ let speed_bonus : TankModel = {
   bonus: Speed(1),
 }
 
+let armor_max = 12
+
+let traj_max = 10
+
+let cd_min = 5
+
+let speed_max = 4
+
 fn make_bonus() -> Array[Tank] {
   [
     Tank::new({ x: 48, y: 60 }, Up, armor_bonus, Bonus),
@@ -63,11 +71,14 @@ fn make_bonus() -> Array[Tank] {
 fn Bonus::up(self : Bonus, tank : Tank) -> Unit {
   match self {
     None => ignore(None)
-    Armor(i) => tank.model.max_health += i 
-    Traj(i) => tank.model.traj += i 
-    Cd(i) => tank.model.cd -= i 
-    Speed(i) => tank.model.speed += i 
-    // Refill => tank.health = tank.model.max_health
+    Armor(i) =>
+      if tank.model.max_health < armor_max {
+        tank.model.max_health += i
+      }
+    Traj(i) => if tank.model.traj < traj_max { tank.model.traj += i }
+    Cd(i) => if tank.model.cd > cd_min { tank.model.cd -= i }
+    Speed(i) => if tank.model.speed < speed_max { tank.model.speed += i }
   }
+  // Refill => tank.health = tank.model.max_health
   tank.health = tank.model.max_health
 }

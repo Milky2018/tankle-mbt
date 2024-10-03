@@ -12,6 +12,7 @@ fn make_levels() -> Array[Level] {
     Level::new([(greenW_model, 4), (superwolf_model, 4), (rhino_model, 4)], 40),
     Level::new([(superrhino_model, 5), (superwolf_model, 5), (superrhino_model, 5)], 60),
     Level::new([(blackpig_model, 1), (superwolf_model, 10)], 4),
+    Level::new([(redpig_model, 4)], 10)
   ]
 }
 

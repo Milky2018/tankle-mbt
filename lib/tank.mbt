@@ -134,6 +134,17 @@ let blackpig_model : TankModel = {
   bonus: None,
 }
 
+let redpig_model : TankModel = {
+  power: 2,
+  speed: 1,
+  cd: 20,
+  traj: 8,
+  sprite: blackpig_sprite,
+  controller: zombie_controller,
+  max_health: 10,
+  bonus: None,
+}
+
 fn Tank::new(
   position : Pos,
   direction : Direction,
@@ -175,6 +186,7 @@ fn Tank::shoot(self : Tank) -> Bullet? {
     let vec = vectorize(tank_width / 2 + bullet_width / 2, self.direction)
     let bullet_pos = center + vec
     self.canon_heat += self.model.cd
+    shoot_sound()
     Some(
       Bullet::new(
         bullet_pos,
@@ -201,5 +213,6 @@ fn Tank::hurt(self : Tank, damage : Int) -> Unit {
   self.health -= damage
   if self.health <= 0 {
     self.live = false
+    explode_sound()
   }
 }
